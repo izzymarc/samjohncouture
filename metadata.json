@@ -1,0 +1,7 @@
+{
+  "name": "Samjohn Couture Abuja",
+  "description": "A premium fashion brand based in Abuja, Nigeria, specializing in bespoke native attire and modern western suits. Features an AI-powered personal stylist.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAMJOHN COUTURE | The Peak of Abuja Bespoke</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-bright: #F9E58B;
+      --obsidian: #050505;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--obsidian);
+      cursor: none;
+      overflow-x: hidden;
+    }
+    .serif-display {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    /* Noise Texture Overlay */
+    .noise::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0.04;
+      z-index: 9998;
+      pointer-events: none;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    }
+    .gold-shimmer {
+      background: linear-gradient(90deg, #996515 0%, #D4AF37 50%, #996515 100%);
+      background-size: 200% auto;
+      animation: shimmer 4s linear infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @keyframes shimmer {
+      to { background-position: 200% center; }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Magnetic Cursor */
+    .custom-cursor {
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.2s ease, width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
+      mix-blend-mode: difference;
+    }
+    .custom-cursor-outline {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cursor-hover {
+      transform: scale(1.5);
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid var(--gold);
+      width: 60px;
+      height: 60px;
+    }
+    /* Smooth Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 0; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+    
+    .page-transition {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^6.22.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
+  }
+}
+</script>
+</head>
+<body class="bg-[#050505] text-stone-300 noise">
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="custom-cursor-outline" id="cursor-outline"></div>
+  <div id="root"></div>
+  <script>
+    const cursor = document.getElementById('cursor');
+    const outline = document.getElementById('cursor-outline');
+    
+    document.addEventListener('mousemove', (e) => {
+      const { clientX, clientY } = e;
+      cursor.style.transform = `translate3d(${clientX - 5}px, ${clientY - 5}px, 0)`;
+      outline.style.transform = `translate3d(${clientX - 20}px, ${clientY - 20}px, 0)`;
+      
+      const target = e.target;
+      if (target.closest('a') || target.closest('button') || target.closest('.interactive')) {
+        outline.classList.add('cursor-hover');
+      } else {
+        outline.classList.remove('cursor-hover');
+      }
+    });
+
+    document.addEventListener('mousedown', () => {
+      cursor.style.transform += ' scale(0.5)';
+      outline.style.transform += ' scale(0.8)';
+    });
+    document.addEventListener('mouseup', () => {
+      cursor.style.transform = cursor.style.transform.replace(' scale(0.5)', '');
+      outline.style.transform = outline.style.transform.replace(' scale(0.8)', '');
+    });
+  </script>
+</body>
+</html>
